@@ -59,9 +59,9 @@ jobs:
         cluster-name: '${{ env.CLUSTER_NAME }}'
     - name: Install Runner
       run: |
-          kubectl delete -f ./runner/cert-manager.yaml 
-          kubectl delete -f ./runner/actions-runner-controller.yaml 
-          kubectl delete secret generic controller-manager  -n actions-runner-system --from-literal=github_token=${{ secrets.RUNNER_TOKEN }}
+          kubectl apply -f ./runner/cert-manager.yaml 
+          kubectl create -f ./runner/actions-runner-controller.yaml 
+          kubectl create secret generic controller-manager  -n actions-runner-system --from-literal=github_token=${{ secrets.RUNNER_TOKEN }}
           sleep 90
-          kubectl delete -f ./runner/runnerdeployment.yaml 
-          kubectl delete -f ./runner/hra-scaler.yaml
+          kubectl apply -f ./runner/runnerdeployment.yaml 
+          kubectl apply -f ./runner/hra-scaler.yaml
