@@ -2,8 +2,8 @@
 # This is a basic workflow to help you get started with Actions
 name: IaC Deployment
 env:
-  RESOURCE_GROUP: 'aksrunners-rg'
-  CLUSTER_NAME: 'aksrunners-aks'
+  RESOURCE_GROUP: 'aks-rg'
+  CLUSTER_NAME: 'aks-cluster'
   ADMIN_USERNAME: 'aksadmin'
   REGION: 'westeurope'
   REGISTRY: ghcr.io
@@ -42,15 +42,15 @@ jobs:
           client-id: ${{ secrets.AZURE_CLIENT_ID }}
           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-    - name: deploy
-      uses: azure/arm-deploy@v1
-      with:
-        subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
-        scope: subscription
-        region: ${{ env.REGION }}
-        template: ./infra/main.bicep
-        parameters: resourcegroup="${{ env.RESOURCE_GROUP }}" aksclustername="${{ env.CLUSTER_NAME }}" adminusername="${{ env.ADMIN_USERNAME }}" sshpublickey="${{ secrets.SSH_PUBLIC_KEY }}"
-        failOnStdErr: false
+    # - name: deploy
+    #   uses: azure/arm-deploy@v1
+    #   with:
+    #     subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
+    #     scope: subscription
+    #     region: ${{ env.REGION }}
+    #     template: ./infra/main.bicep
+    #     parameters: resourcegroup="${{ env.RESOURCE_GROUP }}" aksclustername="${{ env.CLUSTER_NAME }}" adminusername="${{ env.ADMIN_USERNAME }}" sshpublickey="${{ secrets.SSH_PUBLIC_KEY }}"
+    #     failOnStdErr: false
     - name: Set AKS context
       id: set-context
       uses: azure/aks-set-context@v3
