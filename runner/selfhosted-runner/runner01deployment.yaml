@@ -1,13 +1,13 @@
 apiVersion: actions.summerwind.dev/v1alpha1
 kind: RunnerDeployment
 metadata:
- name: k8s-action-runner
+ name: k8s-action-runner02
  namespace: actions-runner-system
 spec:
  replicas: 1
  template:
    spec:
-     repository: ankursar/github-runner-on-aks
+     repository: ankursar/mvn-ci-cd
      image: ghcr.io/ankursar/github-runner-on-aks:main
      imagePullSecrets:
      - name: runnersecret

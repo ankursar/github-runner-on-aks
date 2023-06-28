@@ -4,8 +4,6 @@ name: IaC Deployment
 env:
   RESOURCE_GROUP: 'aks-rg'
   CLUSTER_NAME: 'aks-cluster'
-  ADMIN_USERNAME: 'aksadmin'
-  REGION: 'westeurope'
   REGISTRY: ghcr.io
   IMAGE_NAME: "${{ github.repository }}"
 # Controls when the action will run. 
@@ -27,30 +25,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout source code 
-      uses: actions/checkout@v3
-    - name: Install Azure cli
-      run: |
-        sudo apt-get install ca-certificates curl apt-transport-https lsb-release gnupg
-        curl -sL https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/microsoft.gpg > /dev/null
-        AZ_REPO=$(lsb_release -cs)
-        echo "deb [arch=amd64] https://packages.microsoft.com/repos/azure-cli/ $AZ_REPO main" | sudo tee /etc/apt/sources.list.d/azure-cli.list
-        sudo apt-get update
-        sudo apt-get install azure-cli      
+      uses: actions/checkout@v3 
     - name: 'Az CLI login'
       uses: azure/login@v1
       with:
           client-id: ${{ secrets.AZURE_CLIENT_ID }}
           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-    # - name: deploy
-    #   uses: azure/arm-deploy@v1
-    #   with:
-    #     subscriptionId: ${{ secrets.AZURE_SUBSCRIPTION }}
-    #     scope: subscription
-    #     region: ${{ env.REGION }}
-    #     template: ./infra/main.bicep
-    #     parameters: resourcegroup="${{ env.RESOURCE_GROUP }}" aksclustername="${{ env.CLUSTER_NAME }}" adminusername="${{ env.ADMIN_USERNAME }}" sshpublickey="${{ secrets.SSH_PUBLIC_KEY }}"
-    #     failOnStdErr: false
     - name: Set AKS context
       id: set-context
       uses: azure/aks-set-context@v3
@@ -64,5 +45,5 @@ jobs:
           kubectl create secret generic controller-manager  -n actions-runner-system --from-literal=github_token=${{ secrets.RUNNER_TOKEN }}
           kubectl create secret docker-registry runnersecret -n actions-runner-system --docker-server=https://${{ env.REGISTRY }}/ --docker-username=${{ github.repository }} --docker-password=${{ secrets.RUNNER_TOKEN }}
           sleep 120
-          kubectl apply -f ./runner/runnerdeployment.yaml 
+          kubectl apply -f ./runner/selfhosted-runner/*.yaml  
           kubectl apply -f ./runner/hra-scaler.yaml

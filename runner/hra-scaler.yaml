@@ -6,7 +6,7 @@ metadata:
 spec:
   scaleTargetRef:
     # Your RunnerDeployment Here
-    name: example-runnerdeploy
+    name: k8s-action-runner01
     kind: RunnerDeployment
   minReplicas: 1
   maxReplicas: 20
@@ -14,3 +14,4 @@ spec:
   - type: TotalNumberOfQueuedAndInProgressWorkflowRuns
     repositoryNames:
     - github-runner-on-aks
+    - ankursar/mvn-ci-cd
