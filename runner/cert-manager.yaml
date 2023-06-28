@@ -15,7 +15,7 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: cert-manager
+  name: actions-runner-system
 ---
 # Source: cert-manager/templates/crds.yaml
 apiVersion: apiextensions.k8s.io/v1
@@ -4424,7 +4424,7 @@ kind: ServiceAccount
 automountServiceAccountToken: true
 metadata:
   name: cert-manager-cainjector
-  namespace: cert-manager
+  namespace: actions-runner-system
   labels:
     app: cainjector
     app.kubernetes.io/name: cainjector
@@ -4438,7 +4438,7 @@ kind: ServiceAccount
 automountServiceAccountToken: true
 metadata:
   name: cert-manager
-  namespace: cert-manager
+  namespace: actions-runner-system
   labels:
     app: cert-manager
     app.kubernetes.io/name: cert-manager
@@ -4452,7 +4452,7 @@ kind: ServiceAccount
 automountServiceAccountToken: true
 metadata:
   name: cert-manager-webhook
-  namespace: cert-manager
+  namespace: actions-runner-system
   labels:
     app: webhook
     app.kubernetes.io/name: webhook
@@ -4465,7 +4465,7 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: cert-manager-webhook
-  namespace: cert-manager
+  namespace: actions-runner-system
   labels:
     app: webhook
     app.kubernetes.io/name: webhook
@@ -4853,7 +4853,7 @@ roleRef:
   name: cert-manager-cainjector
 subjects:
   - name: cert-manager-cainjector
-    namespace: cert-manager
+    namespace: actions-runner-system
     kind: ServiceAccount
 ---
 # Source: cert-manager/templates/rbac.yaml
@@ -4873,7 +4873,7 @@ roleRef:
   name: cert-manager-controller-issuers
 subjects:
   - name: cert-manager
-    namespace: cert-manager
+    namespace: actions-runner-system
     kind: ServiceAccount
 ---
 # Source: cert-manager/templates/rbac.yaml
@@ -4893,7 +4893,7 @@ roleRef:
   name: cert-manager-controller-clusterissuers
 subjects:
   - name: cert-manager
-    namespace: cert-manager
+    namespace: actions-runner-system
     kind: ServiceAccount
 ---
 # Source: cert-manager/templates/rbac.yaml
@@ -4913,7 +4913,7 @@ roleRef:
   name: cert-manager-controller-certificates
 subjects:
   - name: cert-manager
-    namespace: cert-manager
+    namespace: actions-runner-system
     kind: ServiceAccount
 ---
 # Source: cert-manager/templates/rbac.yaml
@@ -4933,7 +4933,7 @@ roleRef:
   name: cert-manager-controller-orders
 subjects:
   - name: cert-manager
-    namespace: cert-manager
+    namespace: actions-runner-system
     kind: ServiceAccount
 ---
 # Source: cert-manager/templates/rbac.yaml
@@ -4953,7 +4953,7 @@ roleRef:
   name: cert-manager-controller-challenges
 subjects:
   - name: cert-manager
-    namespace: cert-manager
+    namespace: actions-runner-system
     kind: ServiceAccount
 ---
 # Source: cert-manager/templates/rbac.yaml
@@ -4973,7 +4973,7 @@ roleRef:
   name: cert-manager-controller-ingress-shim
 subjects:
   - name: cert-manager
-    namespace: cert-manager
+    namespace: actions-runner-system
     kind: ServiceAccount
 ---
 # Source: cert-manager/templates/rbac.yaml
@@ -4993,7 +4993,7 @@ roleRef:
   name: cert-manager-controller-approve:cert-manager-io
 subjects:
   - name: cert-manager
-    namespace: cert-manager
+    namespace: actions-runner-system
     kind: ServiceAccount
 ---
 # Source: cert-manager/templates/rbac.yaml
@@ -5013,7 +5013,7 @@ roleRef:
   name: cert-manager-controller-certificatesigningrequests
 subjects:
   - name: cert-manager
-    namespace: cert-manager
+    namespace: actions-runner-system
     kind: ServiceAccount
 ---
 # Source: cert-manager/templates/webhook-rbac.yaml
@@ -5035,7 +5035,7 @@ subjects:
 - apiGroup: ""
   kind: ServiceAccount
   name: cert-manager-webhook
-  namespace: cert-manager
+  namespace: actions-runner-system
 ---
 # Source: cert-manager/templates/cainjector-rbac.yaml
 # leader election rules
@@ -5090,7 +5090,7 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: Role
 metadata:
   name: cert-manager-webhook:dynamic-serving
-  namespace: cert-manager
+  namespace: actions-runner-system
   labels:
     app: webhook
     app.kubernetes.io/name: webhook
@@ -5129,7 +5129,7 @@ roleRef:
 subjects:
   - kind: ServiceAccount
     name: cert-manager-cainjector
-    namespace: cert-manager
+    namespace: actions-runner-system
 ---
 # Source: cert-manager/templates/rbac.yaml
 # grant cert-manager permission to manage the leaderelection configmap in the
@@ -5153,14 +5153,14 @@ subjects:
   - apiGroup: ""
     kind: ServiceAccount
     name: cert-manager
-    namespace: cert-manager
+    namespace: actions-runner-system
 ---
 # Source: cert-manager/templates/webhook-rbac.yaml
 apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
   name: cert-manager-webhook:dynamic-serving
-  namespace: cert-manager
+  namespace: actions-runner-system
   labels:
     app: webhook
     app.kubernetes.io/name: webhook
@@ -5175,14 +5175,14 @@ subjects:
 - apiGroup: ""
   kind: ServiceAccount
   name: cert-manager-webhook
-  namespace: cert-manager
+  namespace: actions-runner-system
 ---
 # Source: cert-manager/templates/service.yaml
 apiVersion: v1
 kind: Service
 metadata:
   name: cert-manager
-  namespace: cert-manager
+  namespace: actions-runner-system
   labels:
     app: cert-manager
     app.kubernetes.io/name: cert-manager
@@ -5206,7 +5206,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: cert-manager-webhook
-  namespace: cert-manager
+  namespace: actions-runner-system
   labels:
     app: webhook
     app.kubernetes.io/name: webhook
@@ -5230,7 +5230,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: cert-manager-cainjector
-  namespace: cert-manager
+  namespace: actions-runner-system
   labels:
     app: cainjector
     app.kubernetes.io/name: cainjector
@@ -5283,7 +5283,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: cert-manager
-  namespace: cert-manager
+  namespace: actions-runner-system
   labels:
     app: cert-manager
     app.kubernetes.io/name: cert-manager
@@ -5345,7 +5345,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: cert-manager-webhook
-  namespace: cert-manager
+  namespace: actions-runner-system
   labels:
     app: webhook
     app.kubernetes.io/name: webhook
@@ -5464,7 +5464,7 @@ webhooks:
     clientConfig:
       service:
         name: cert-manager-webhook
-        namespace: cert-manager
+        namespace: actions-runner-system
         path: /mutate
 ---
 # Source: cert-manager/templates/webhook-validating-webhook.yaml
@@ -5514,5 +5514,5 @@ webhooks:
     clientConfig:
       service:
         name: cert-manager-webhook
-        namespace: cert-manager
+        namespace: actions-runner-system
         path: /validate
