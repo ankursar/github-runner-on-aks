@@ -1,10 +1,10 @@
 apiVersion: actions.summerwind.dev/v1alpha1
 kind: RunnerDeployment
 metadata:
-  name: example-runnerdeploy
+ name: k8s-action-runner
+ namespace: actions-runner-system
 spec:
-  replicas: 1
-  template:
-    spec:
-      repository: ankursar/github-runner-on-aks
-      #organization: <YOUR ORG NAME IF WANT TO WORK AT ORG LEVEL>  
+ replicas: 1
+ template:
+   spec:
+     repository: ankursar/github-runner-on-aks
