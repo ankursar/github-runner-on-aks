@@ -8,3 +8,6 @@ spec:
  template:
    spec:
      repository: ankursar/github-runner-on-aks
+     image: ghcr.io/ankursar/github-runner-on-aks:main
+     imagePullSecrets:
+     - name: runnersecret
