@@ -31,12 +31,12 @@ jobs:
         chmod 400 key.pem
         ssh -i key.pem -f -N -o "StrictHostKeyChecking=no" -L 80:10.0.1.4:80 azureuser@52.173.121.216
 
-    - name: run commmand on vm02
-      shell: bash
-      run: |
-        ssh localhost 'hostname'
-        ssh localhost 'uptime'
-        ssh localhost 'curl localhost'
+    # - name: run commmand on vm02
+    #   shell: bash
+    #   run: |
+    #     ssh localhost 'hostname'
+    #     ssh localhost 'uptime'
+    #     ssh localhost 'curl localhost'
 
     - name: run commmand on vm02
       shell: bash
