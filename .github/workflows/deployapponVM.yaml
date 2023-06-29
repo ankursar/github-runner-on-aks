@@ -25,9 +25,15 @@ jobs:
     - name: Checkout source code 
       uses: actions/checkout@v3
     - name: Establish ssh tunnel
-      shell: bash
+      env:
+        SSH_PUBLIC_KEY: ${{ secrets.SSH_PUBLIC_KEY }}
+        SSH_USER: ${{ secrets.SSH_USER }}
+        SSH_HOST: ${{ secrets.SSH_HOST }}
       run: |
-        ssh -i ${{ secret.SSH_PUBLIC_KEY }} -f -N -L localhost:80:10.0.1.4:80 ${{ secret.SSH_USER }}@${{ secret.SSH_HOST }}
+         chmod +x ./scripts/ssh-tunnel.sh
+         ./scripts/ssh-tunnel.sh
+      shell: bash
+        
     - name: setup python
       uses: actions/setup-python@v4
       with:
@@ -40,7 +46,7 @@ jobs:
       run: |
         ssh localhost 'hostname'
         python3 -c "import sys; print(sys.version)" 
-    - name: Closed ssh tunnel
-      shell: bash
-      run: |
-        ssh -i ${{ secret.SSH_PUBLIC_KEY }} -T -O "exit" ${{ secret.SSH_USER }}@${{ secret.SSH_HOST }} 
+    # - name: Closed ssh tunnel
+    #   shell: bash
+    #   run: |
+    #     ssh -i ${{ secret.SSH_PUBLIC_KEY }} -T -O "exit" ${{ secret.SSH_USER }}@${{ secret.SSH_HOST }} 
