@@ -31,7 +31,7 @@ jobs:
         SSH_HOST: ${{ secrets.SSH_HOST }}
       shell: bash
       run: |
-        ssh -i $SSH_PUBLIC_KEY -f -N -L localhost:80:10.0.1.4:80 azureuser@52.173.121.216
+        ssh -i $SSH_PUBLIC_KEY -f -N -L 80:10.0.1.4:80 azureuser@52.173.121.216
         
     - name: setup python
       uses: actions/setup-python@v4
