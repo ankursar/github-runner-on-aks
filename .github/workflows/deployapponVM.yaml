@@ -73,8 +73,9 @@ jobs:
         sudo apt-get install -y libaio1
         wget https://download.oracle.com/otn_software/linux/instantclient/1919000/instantclient-basiclite-linux.x64-19.19.0.0.0dbru.zip
         unzip instantclient-basiclite-linux.x64-19.19.0.0.0dbru.zip
-        export LD_LIBRARY_PATH=$(pwd)/instantclient_19_11
-        echo 'export LD_LIBRARY_PATH=$(pwd)/instantclient_19_11' >> $HOME/.bashrc
+        export LD_LIBRARY_PATH=$(pwd)/instantclient_19_19
+        echo 'export LD_LIBRARY_PATH=$(pwd)/instantclient_19_19' >> $HOME/.bashrc
+        export PATH=$(pwd)/instantclient_19_19:$PATH
 
     - name: Run SQL*Plus command
       run: |
