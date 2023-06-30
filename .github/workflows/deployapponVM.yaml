@@ -41,7 +41,7 @@ jobs:
     - name: run commmand on vm02
       shell: bash
       run: |
-        curl localhost:80
+        curl localhost:8080
 
     # - name: setup python
     #   uses: actions/setup-python@v4
