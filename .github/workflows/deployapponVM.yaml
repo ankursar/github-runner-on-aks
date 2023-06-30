@@ -58,7 +58,7 @@ jobs:
     - name: Closed ssh tunnel
       shell: bash
       run: |
-        ssh -i key.pem -T -O "exit" azureuser@104.43.238.217
+        ssh -i key.pem -T -o "exit" azureuser@104.43.238.217
         rm -rf key.pem
 
     - name: Set up Oracle Instant Client
