@@ -58,5 +58,22 @@ jobs:
     - name: Closed ssh tunnel
       shell: bash
       run: |
-        ssh -i key.pem -T -O "exit" azureuser@52.173.121.216
+        ssh -i key.pem -T -O "exit" azureuser@104.43.238.217
         rm -rf key.pem
+
+    - name: Set up Oracle Instant Client
+      uses: actions/setup-java@v2
+      with:
+        java-version: '11'
+        
+    - name: Set up SQL*Plus
+      run: |
+        sudo apt-get install -y libaio1
+        wget https://download.oracle.com/otn_software/linux/instantclient/instantclient-basic-linux.x64-19.11.0.0.0dbru.zip
+        unzip instantclient-basic-linux.x64-19.11.0.0.0dbru.zip
+        export LD_LIBRARY_PATH=$(pwd)/instantclient_19_11
+        echo 'export LD_LIBRARY_PATH=$(pwd)/instantclient_19_11' >> $HOME/.bashrc
+
+    - name: Run SQL*Plus command
+      run: |
+        sqlplus
