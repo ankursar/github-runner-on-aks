@@ -55,11 +55,11 @@ jobs:
     #   run: |
     #     ssh localhost 'hostname'
     #     python3 -c "import sys; print(sys.version)" 
-    - name: Closed ssh tunnel
-      shell: bash
-      run: |
-        sudo killall ssh
-        rm -rf key.pem
+    # - name: Closed ssh tunnel
+    #   shell: bash
+    #   run: |
+    #     sudo killall ssh
+    #     rm -rf key.pem
 
     - name: Set up Oracle Instant Client
       uses: actions/setup-java@v2
